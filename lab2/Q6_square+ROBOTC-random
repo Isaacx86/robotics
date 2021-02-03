@@ -22,8 +22,9 @@ void turn()
 	if (direction == 1)
 	{
 	    //turn left
-	    setMotorSyncTime(leftMotor, rightMotor, -100, 100, 50);
-	    sleep(1500);		
+	    etMotorSpeed(leftMotor, 50);
+		setMotorSpeed(rightMotor, -50);
+		sleep(412);	
 	}
 	if (direction == 0)
 	{
