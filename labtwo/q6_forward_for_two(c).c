@@ -6,13 +6,13 @@ AUTHOR: Isaac
 int leftMotor = 1;
 int rightMotor = 2;
 
-void goForward2second() //both motors at the same speed keep it in a straight line for sleep(1000) = 1 second
+void goForward2second() //both motors at the same speed keep it in a straight line for 2 seconds (sleep 2000)
 {
 	setMotorSpeed(leftMotor, 50);
 	setMotorSpeed(rightMotor, 50);
 	sleep(2000);
 }
-void turn180degreesright() //just like turn90degreesleft above, however the motor speeds are swapped to make the robot turn right
+void turn180degreesright() //This function will turn 180 degrees too the right on the spot.
 {
 	setMotorSpeed(leftMotor, -45);
 	setMotorSpeed(rightMotor, 45);
@@ -20,7 +20,7 @@ void turn180degreesright() //just like turn90degreesleft above, however the moto
 	
 	
 }
-void returnBackSlow() //both motors at the same speed keep it in a straight line for sleep(1000) = 1 second
+void returnBackSlow() //This will slow the motors down, and double the time to bring it back to its starting position
 {
 	setMotorSpeed(leftMotor, 25);
 	setMotorSpeed(rightMotor, 25);
@@ -28,7 +28,7 @@ void returnBackSlow() //both motors at the same speed keep it in a straight line
 }
 
 task main() 
-{	//executing the function
+{	//executing the functions as followed
 	goForward2second();
 	turn180degreesright();
 	returnBackSlow();
