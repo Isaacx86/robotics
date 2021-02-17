@@ -1,0 +1,69 @@
+/*
+authour Emma Jane Power
+Date: 17/02/21
+moving in a square with the perimeter of 200cm using the ROBOTC random function 
+*/
+
+int rightMotor = 2;
+int leftMotor = 1;
+int direction = random(1);
+
+// calculating how many degrees per cm 
+const float DEGREESTOCM = 360/17.3;
+
+// convert distance to degrees 
+float distanceInDegrees(long distance)
+{
+	return DEGREESTOCM*50;
+	
+}
+
+//moving forward 50 cm 
+void drive(long nMotorRatio, long dist, long power)
+{
+	
+	float degreesToTurn = 0;
+	degreesToTurn = distanceInDegrees(dist);
+	nMotorEncoder[leftMotor] = 0;
+	
+	while (nMotorEncoder[leftMotor] < degreesToTurn )
+	{
+		setMotorSpeed(leftMotor, power);
+		setMotorSpeed(rightMotor, power);
+		sleep(2000);
+		
+	}
+	
+}
+
+//turning function
+void turn()
+{
+	if (direction == 1)
+	{
+		//turn left
+		setMotorSpeed(leftMotor, 50);
+		setMotorSpeed(rightMotor, -50);
+		sleep(425);	
+	}
+	if (direction == 0)
+	{
+		//turn right
+		setMotorSpeed(leftMotor, -50);
+		setMotorSpeed(rightMotor, 50);
+		sleep(425);
+	} 	
+}
+
+task main()
+{
+	drive(0, 200, 25);
+	turn();
+	drive(0,200,25);
+	turn();
+	drive(0,200,25);
+	turn();
+	drive(0,200,25);
+	turn();
+	
+}
