@@ -50,11 +50,11 @@ void reverse1second() //reverse power in the motor allows the robot to go backwa
 }
 
 task main() 
-{ //executing the functions in order.
+{	//executing the functions in order.
 	turn90degreesleft();
 	turn90degreesright();
 	goForward1second();
-	swingRight90degrees();
 	swingLeft90degrees();
+	swingRight90degrees();
 	reverse1second();
 }
