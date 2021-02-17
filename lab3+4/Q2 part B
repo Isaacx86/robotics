@@ -1,0 +1,55 @@
+/*
+authour Emma Jane Power
+Date: 17/02/21
+go forward for 100cm at 100% power then a 180 degree spin and return to origional position at 25% power
+*/
+
+int rightMotor = 2;
+int leftMotor = 1;
+int direction = random(1);
+
+// calculating how many degrees per cm 
+const float DEGREESTOCM = 360/17.3;
+
+// convert distance to degrees 
+float distanceInDegrees(long distance)
+{
+	return DEGREESTOCM*100;
+	
+}
+
+//moving forward 50 cm 
+void drive(long nMotorRatio, long dist, long power)
+{
+	
+	float degreesToTurn = 0;
+	degreesToTurn = distanceInDegrees(dist);
+	nMotorEncoder[leftMotor] = 0;
+	
+	while (nMotorEncoder[leftMotor] < degreesToTurn )
+	{
+		setMotorSpeed(leftMotor, power);
+		setMotorSpeed(rightMotor, power);
+		sleep(2000);
+		
+	}
+	
+}
+
+//turning 180 degrees
+void turn180Degrees() 
+{
+	setMotorSpeed(leftMotor, -45);
+	setMotorSpeed(rightMotor, 46);
+	sleep(900);
+	
+}
+
+
+task main()
+{
+	drive(0, 100, 50);
+	turn180Degrees();
+	drive(0, 100, 12);
+	
+}
