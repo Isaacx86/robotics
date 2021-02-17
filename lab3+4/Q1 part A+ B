@@ -1,0 +1,55 @@
+/*
+authour Emma Jane Power
+Q1: (A) drive (B) turn using PID control 
+*/
+
+int rightMotor = 2;
+int leftMotor = 1;
+
+
+// calculating how many degrees per cm 
+const float DEGREESTOCM = 360/17.3;
+
+// convert distance to degrees 
+float distanceInDegrees(long distance)
+{
+	return DEGREESTOCM*30;
+	
+}
+
+//moving forward 30 cm 
+void drive(long nMotorRatio, long dist, long power)
+{
+	
+	float degreesToTurn = 0;
+	degreesToTurn = distanceInDegrees(dist);
+	nMotorEncoder[leftMotor] = 0;
+	
+	while (nMotorEncoder[leftMotor] < degreesToTurn )
+	{
+		setMotorSpeed(leftMotor, power);
+		setMotorSpeed(rightMotor, power);
+		sleep(2000);
+		
+	}
+	
+}
+
+//turning function
+void turn90(long nMotorRatio, long power)
+{
+	
+	//turn right
+	setMotorSpeed(leftMotor, power);
+	setMotorSpeed(rightMotor, -power);
+	sleep(425);
+	
+}
+
+task main()
+{
+	drive(0, 30, 25);
+	turn90(0, 50);
+	
+	
+}
