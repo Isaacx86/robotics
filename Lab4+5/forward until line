@@ -38,7 +38,7 @@ task main()
 	
 	while(SensorValue[0] == 0)
 	{
-		displayBigTextLine(2, "Press button, read dark");
+		displayBigTextLine(2, "Read dark");
 		displayBigTextLine(4, " value = %d", SensorValue[2]);
 		wait1Msec(500);
 	}
