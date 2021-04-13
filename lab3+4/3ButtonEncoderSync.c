@@ -1,3 +1,4 @@
+// Program Author Isaac Barry - 2/24/2021/
 int leftMotor = 1;
 int rightMotor = 2;
 
