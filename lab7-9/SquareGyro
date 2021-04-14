@@ -1,0 +1,140 @@
+int rightMotor = 2;
+int leftMotor = 1;
+
+// function to turn 90 degrees using the gyro 
+void turn90()
+{
+	
+	resetGyro(1);
+	
+	sleep(2000);
+	
+	// while the gyro is less than or eqal to 90 turn left
+	while (getGyroDegrees(1) < 85)
+	{
+		setMotorSpeed(rightMotor, -50);
+		setMotorSpeed(leftMotor, 50);
+	}
+	
+	// resetting motor speed
+	setMotorSpeed(rightMotor, 0);
+	setMotorSpeed(leftMotor, 0);
+}
+
+/*
+void turn90(long nMotorRatio, long power)
+{
+	
+	//turn right
+	setMotorSpeed(leftMotor, power);
+	setMotorSpeed(rightMotor, -power);
+	sleep(410);
+	
+}
+*/
+// convert distance to degrees 
+float distanceInDegrees(long distance)
+{
+	const float DEGREESTOCM = 360/17.3;
+	
+	return DEGREESTOCM*distance;
+	
+}
+
+//moving forward a distance set by button input 
+void drive(long nMotorRatio, long dist, long power)
+{
+	
+	float degreesToTurn = 0;
+	
+	degreesToTurn = distanceInDegrees(dist); // calling function to assign degrees rotation
+	nMotorEncoder[leftMotor] = 0;
+	
+	// moving forward until distance is reached 
+	while (nMotorEncoder[leftMotor] < degreesToTurn )
+	{
+		setMotorSpeed(leftMotor, power);
+		setMotorSpeed(rightMotor, power);
+		sleep(2000);
+		
+	}
+	
+	// calling function to turn 
+	turn90();
+}
+
+task main()
+{
+	int input;
+	SensorType[S2] = sensorEV3_Gyro; // gyro on sensor 2
+	displayCenteredTextLine(1, "please press a button:");// asking user for input 
+	
+	waitForButtonPress();
+	
+	// using if statment to chose the distance depending on button input 
+	
+	if (getButtonPress(buttonUp))
+	{
+		displayCenteredBigTextLine(4, "200");
+		input = 1;
+		sleep(200);
+	}
+	
+	if (getButtonPress(buttonLeft))
+	{
+		displayCenteredBigTextLine(4, "400");
+		input = 2;
+		sleep(200);
+	}
+	
+	if (getButtonPress(buttonDown))
+	{
+		displayCenteredBigTextLine(4, "120");
+		input = 3;
+		sleep(200);
+	}
+	
+	if (getButtonPress(buttonRight))
+	{
+		displayCenteredBigTextLine(4, "300");
+		input = 4;
+		sleep(200);
+	}
+	
+	
+	// calling the functions and sending appropriate distances 
+	
+	if (input == 1)
+	{
+		drive(0, 50, 25);
+		drive(0, 50, 25);
+		drive(0, 50, 25);
+		drive(0, 50, 25);
+	}
+	
+	else if (input == 2)
+	{
+		drive(0, 100, 25);
+		drive(0, 100, 25);
+		drive(0, 100, 25);
+		drive(0, 100, 25);
+	}
+	else if (input == 3)
+	{
+		drive(0, 30, 25);
+		drive(0, 30, 25);
+		drive(0, 30, 25);
+		drive(0, 30, 25);
+	}
+	
+	else if (input == 4)
+	{
+		drive(0, 75, 25);
+		drive(0, 75, 25);
+		drive(0, 75, 25);
+		drive(0, 75, 25);
+	}
+	
+	
+}
+
